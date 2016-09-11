@@ -7,9 +7,9 @@ INCLUDEPATH += ../../include/plvopencv
 LIBS += -lplvcore -lplvgui
 QMAKE_LIBDIR += ../../libs/plugins
 
-macx {
-    QMAKE_POST_LINK = install_name_tool -change libplvcore.1.dylib @executable_path/../Frameworks/libplvcore.1.dylib $${DESTDIR}/$${TARGET}.dylib
-}
+#macx {
+#    QMAKE_POST_LINK = install_name_tool -change libplvcore.1.dylib @executable_path/../Frameworks/libplvcore.1.dylib $${DESTDIR}/$${TARGET}.dylib
+#}
 
 include(../../common.pri)
 
@@ -28,3 +28,5 @@ HEADERS +=  tcpserverplugin.h \
             ServerConnection.h \
             TCPClientProducer.h \
 			Proto.h
+
+OTHER_FILES += tcpserver.json

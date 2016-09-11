@@ -22,7 +22,7 @@
 #ifndef INSPECTORWIDGET_H
 #define INSPECTORWIDGET_H
 
-#include <QtGui/QDockWidget>
+#include <QDockWidget>
 
 #include <plvcore/RefPtr.h>
 #include <plvcore/PipelineElement.h>

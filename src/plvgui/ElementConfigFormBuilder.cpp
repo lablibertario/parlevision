@@ -54,12 +54,12 @@ ElementConfigFormBuilder* ElementConfigFormBuilder::getBuilderFor(QString elemen
 
     const QString builderTypeName = ElementConfigFormBuilder::s_typeMap[elementTypeName];
 
-    int typeId = QMetaType::type(builderTypeName.toAscii());
-    if(typeId == 0)
+    int typeId = QMetaType::type(builderTypeName.toLatin1());
+    if(typeId == QMetaType::UnknownType)
         throw new std::runtime_error(
                 QString("Tried to create unknown formbuilder "+builderTypeName).toStdString());
 
-    ElementConfigFormBuilder* b = static_cast<ElementConfigFormBuilder*>(QMetaType::construct(typeId));
+    ElementConfigFormBuilder* b = static_cast<ElementConfigFormBuilder*>(QMetaType::create(typeId));
 
     return b;
 }

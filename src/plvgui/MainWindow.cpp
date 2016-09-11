@@ -52,6 +52,12 @@
 #include <QDebug>
 #include <QSettings>
 #include <QtGui>
+#include <QShortcut>
+#include <QScrollBar>
+#include <QDesktopWidget>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QErrorMessage>
 
 #include <list>
 
@@ -724,6 +730,7 @@ void MainWindow::handleMessage(QtMsgType type, QString msg)
 
     switch (type) {
     case QtDebugMsg:
+    case QtInfoMsg:
         break;
     case QtWarningMsg:
         errorDialog.showMessage(msg);

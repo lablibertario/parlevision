@@ -20,3 +20,6 @@ HEADERS +=  plvtest_plugin.h \
             plvtest_global.h \
             TestProducer.h \
     BlobProducer.h
+
+OTHER_FILES += \
+    test.json

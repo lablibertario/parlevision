@@ -9,8 +9,6 @@ DEPENDPATH += . \
 
 include(../../common.pri)
 macx { 
-
-    
     # Make sure there is no mess in ./
     # but put all output files in build/(debug|release)
 #    !debug_and_release|build_pass { 
@@ -25,20 +23,31 @@ macx {
 #    QMAKE_POST_LINK=cp -f ../libs/*.dylib ../libs/parlevision.app/Contents/MacOS/
 }
 
-LIBS += -L../../libs -lplvcore
+LIBS += -L../../libs -lplvcore -lqxtlogger
 
 CONFIG(debug, debug|release):DEFINES += DEBUG
-QT      += xml
+QT      += core gui widgets xml concurrent
 DEFINES += PLVGUI_LIBRARY
 
 #to include qxt project
-CONFIG  += qxt
-QXT     += core
+#CONFIG  += qxt
+#QXT     += core
 
 #QMAKE_CXXFLAGS_DEBUG += -pedantic \
 # -Wunused-parameter \
 # -Wunused-variable
-INCLUDEPATH +=  ../../include/ ../../include/plvgui
+INCLUDEPATH +=  ../../include/ ../../include/plvgui ../qxtlogger/
+
+FORMS += ../../resources/mainwindow.ui \
+    ../../resources/librarywidget.ui \
+    ../../resources/inspectorwidget.ui \
+    ../../resources/viewerwidget.ui \
+    ../../resources/cameraconfigform.ui \
+    ../../resources/welcome.ui \
+    ../../resources/aboutdialog.ui
+
+RESOURCES += ../../resources/icons.qrc \
+            ../../resources/images.qrc
                 
 SOURCES += \
     MainWindow.cpp \
@@ -94,13 +103,4 @@ HEADERS += \
     ../../include/plvgui/plvgui_global.h \
     ../../include/plvgui/AboutDialog.h
 
-FORMS += ../../resources/mainwindow.ui \
-    ../../resources/librarywidget.ui \
-    ../../resources/inspectorwidget.ui \
-    ../../resources/viewerwidget.ui \
-    ../../resources/cameraconfigform.ui \
-    ../../resources/welcome.ui \
-    ../../resources/aboutdialog.ui
 
-RESOURCES += ../../resources/icons.qrc \
-            ../../resources/images.qrc

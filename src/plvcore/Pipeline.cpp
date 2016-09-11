@@ -933,7 +933,7 @@ bool Pipeline::load( const QString& filename )
     {
         QString msg = tr("Pipeline load called on pipeline which is not empty. Ignoring.");
         qWarning() << msg;
-        Q_ASSERT_X(false, __FUNCTION__, msg.toAscii());
+        Q_ASSERT_X(false, __FUNCTION__, msg.toLatin1());
         return false;
     }
     m_filename = filename;
@@ -981,4 +981,11 @@ bool Pipeline::saveAs( const QString& filename )
     return save();
 }
 
-
+void RunItem::dispatch()
+{
+    assert( m_element->getState() == PipelineElement::PLE_STARTED );
+    assert( m_dispatched == false );
+    m_element->setState( PipelineElement::PLE_DISPATCHED );
+    m_result = QtConcurrent::run( m_element, &PipelineElement::run, m_serial );
+    m_dispatched = true;
+}

@@ -40,6 +40,9 @@
 #include "PinWidget.h"
 #include "MainWindow.h"
 
+#include <QGraphicsSceneMouseEvent>
+#include <QApplication>
+
 using namespace plvgui;
 using namespace plv;
 
@@ -415,10 +418,11 @@ void PipelineScene::setChanged()
 
 MainWindow* PipelineScene::getMainWindow()
 {
+    QGraphicsView* first = this->views().first();
     foreach(QWidget* tlw, QApplication::topLevelWidgets())
     {
         MainWindow* mw = qobject_cast<MainWindow*>(tlw);
-        if(mw != 0 && mw->isAncestorOf(this->views().first()))
+        if(mw != 0 ) //&& mw->isAncestorOf(first))
         {
             return mw;
         }
@@ -432,11 +436,13 @@ void PipelineScene::ensureFit()
     {
         if(item->scenePos().x() < 0.0)
         {
-            item->translate(-item->scenePos().x(),0);
+            //item->translate(-item->scenePos().x(),0);
+            item->setTransform(QTransform::fromTranslate(-item->scenePos().x(),0), true);
         }
         if(item->scenePos().y() < 0.0)
         {
-            item->translate(0,-item->scenePos().y());
+            //item->translate(0,-item->scenePos().y());
+            item->setTransform(QTransform::fromTranslate(-item->scenePos().x(),0), true);
         }
     }
 }

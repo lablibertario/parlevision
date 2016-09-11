@@ -27,6 +27,12 @@
 
 #include <QtGui>
 #include <assert.h>
+#include <QFormLayout>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QGraphicsSceneMouseEvent>
 
 #include <plvcore/PipelineElement.h>
 
@@ -92,9 +98,9 @@ void InspectorWidget::setTarget(plv::RefPtr<plv::PipelineElement> element)
             itr != propertyNames.end(); ++itr)
         {
             QString propertyName = *itr;
-            QVariant value = element->property(propertyName.toAscii());
+            QVariant value = element->property(propertyName.toLatin1());
 
-            int propIndex = element->metaObject()->indexOfProperty( propertyName.toAscii() );
+            int propIndex = element->metaObject()->indexOfProperty( propertyName.toLatin1() );
             QMetaProperty property = element->metaObject()->property( propIndex );
             if( property.isEnumType() )
             {
@@ -218,11 +224,11 @@ void InspectorWidget::clearSelection()
 //    form->addRow(new QLabel( name, form->parentWidget()), comboBox);
 
 //    QMetaProperty prop = element->metaObject()->property(
-//                    element->metaObject()->indexOfProperty(name.toAscii()));
+//                    element->metaObject()->indexOfProperty(name.toLatin1()));
 
 //    if( prop.hasNotifySignal() )
 //    {
-//        QString signature = prop.notifySignal().signature();
+//        QString signature = prop.notifySignal().methodSignature();
 //        qDebug() << "connecting signal " << signature;
 ////        priorityChanged(Priority)
 ////        signature.replace( QRegExp("\\([^)]*\\)"), "(QString)" );
@@ -236,7 +242,7 @@ void InspectorWidget::clearSelection()
 //    }
 
 //    QString slot = QByteArray::number(QSLOT_CODE) + propertySlotSignature(element, name, "QString");
-//    comboBox->setEnabled( connect(comboBox, SIGNAL( currentIndexChanged(QString) ), element, slot.toAscii()));
+//    comboBox->setEnabled( connect(comboBox, SIGNAL( currentIndexChanged(QString) ), element, slot.toLatin1()));
 //}
 
 void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element, const QString& name, plv::Enum plvEnum )
@@ -248,7 +254,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
     form->addRow(new QLabel( name, form->parentWidget()), comboBox);
 
     QMetaProperty prop = element->metaObject()->property(
-                    element->metaObject()->indexOfProperty(name.toAscii()));
+                    element->metaObject()->indexOfProperty(name.toLatin1()));
 
     // make a proxy object
     PlvEnumProxy* proxy = new PlvEnumProxy( plvEnum );
@@ -258,7 +264,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
     {
         // connect the element and use this as proxy object to translate from
         // plv::Enum to
-        connect( element.getPtr(), QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().signature(),
+        connect( element.getPtr(), QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().methodSignature(),
                     proxy, SLOT( enumToInt( plv::Enum ) ));
 
         // connect this to the combo box for translation
@@ -276,7 +282,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
              proxy, SLOT( intToEnum(int) ) );
 
     connect( proxy, SIGNAL( indexSet(plv::Enum) ),
-             element.getPtr(), slot.toAscii() );
+             element.getPtr(), slot.toLatin1() );
 
     comboBox->setEnabled( true );
 }
@@ -289,12 +295,12 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
     spinBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
 
     QMetaProperty prop = element->metaObject()->property(
-                    element->metaObject()->indexOfProperty(name.toAscii()));
+                    element->metaObject()->indexOfProperty(name.toLatin1()));
 
     if(prop.hasNotifySignal())
     {
-        qDebug() << "connecting signal " << prop.notifySignal().signature();;
-        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().signature(),
+        qDebug() << "connecting signal " << prop.notifySignal().methodSignature();;
+        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().methodSignature(),
                 spinBox, SLOT(setValue(int)));
     }
     else
@@ -304,7 +310,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
 
     QString slot = QByteArray::number(QSLOT_CODE) + propertySlotSignature(element, name);
     spinBox->setEnabled(connect(spinBox, SIGNAL(valueChanged(int)),
-                        element, slot.toAscii()));
+                        element, slot.toLatin1()));
 
     form->addRow(new QLabel( name, form->parentWidget()), spinBox);
 }
@@ -319,12 +325,12 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
     spinBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
 
     QMetaProperty prop = element->metaObject()->property(
-                    element->metaObject()->indexOfProperty(name.toAscii()));
+                    element->metaObject()->indexOfProperty(name.toLatin1()));
 
     if(prop.hasNotifySignal())
     {
-        qDebug() << "connecting signal " << prop.notifySignal().signature();;
-        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().signature(),
+        qDebug() << "connecting signal " << prop.notifySignal().methodSignature();;
+        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().methodSignature(),
                 spinBox, SLOT(setValue(double)));
     }
     else
@@ -334,7 +340,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
 
     QString slot = QByteArray::number(QSLOT_CODE) + propertySlotSignature(element, name);
     spinBox->setEnabled(connect(spinBox, SIGNAL(valueChanged(double)),
-                        element, slot.toAscii()));
+                        element, slot.toLatin1()));
 
     form->addRow(new QLabel( name, form->parentWidget()), spinBox);
 }
@@ -346,12 +352,12 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
     checkBox->setChecked(value);
 
     QMetaProperty prop = element->metaObject()->property(
-                    element->metaObject()->indexOfProperty(name.toAscii()));
+                    element->metaObject()->indexOfProperty(name.toLatin1()));
 
     if(prop.hasNotifySignal())
     {
-        qDebug() << "connecting signal " << prop.notifySignal().signature();;
-        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().signature(),
+        qDebug() << "connecting signal " << prop.notifySignal().methodSignature();;
+        connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().methodSignature(),
                 checkBox, SLOT(setChecked(bool)));
     }
     else
@@ -361,7 +367,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
 
     QString slot = QByteArray::number(QSLOT_CODE) + propertySlotSignature(element, name);
     checkBox->setEnabled(connect(checkBox, SIGNAL(toggled(bool)),
-                        element, slot.toAscii()));
+                        element, slot.toLatin1()));
 
     form->addRow(new QLabel( name, form->parentWidget()), checkBox);
 }
@@ -379,12 +385,12 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
         textField->setText(value);
 
         QMetaProperty prop = element->metaObject()->property(
-                        element->metaObject()->indexOfProperty(name.toAscii()));
+                        element->metaObject()->indexOfProperty(name.toLatin1()));
 
         if(prop.hasNotifySignal())
         {
-            qDebug() << "connecting signal " << prop.notifySignal().signature();;
-            connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().signature(),
+            qDebug() << "connecting signal " << prop.notifySignal().methodSignature();;
+            connect(element, QByteArray::number(QSIGNAL_CODE) + prop.notifySignal().methodSignature(),
                     textField, SLOT(setText(QString)));
         }
         else
@@ -394,7 +400,7 @@ void InspectorWidget::addRow(QFormLayout* form, RefPtr<PipelineElement> element,
 
         QString slot = QByteArray::number(QSLOT_CODE) + propertySlotSignature(element, name);
         textField->setEnabled(connect(textField, SIGNAL(textEdited(QString)),
-                            element, slot.toAscii()));
+                            element, slot.toLatin1()));
 
         form->addRow(new QLabel( name, form->parentWidget()), textField);
     }
@@ -406,7 +412,7 @@ QString InspectorWidget::propertySlotSignature(QObject* obj, QString propertyNam
     if( propertyName.length() < 1 )
         return "UNKNOWN()";
 
-    QVariant value = obj->property(propertyName.toAscii());
+    QVariant value = obj->property(propertyName.toLatin1());
     QString methodName;
 
     if( !signature.isEmpty() )

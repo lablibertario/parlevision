@@ -29,6 +29,7 @@
 class PLV_BLOBTRACKER_EXPORT PlvBlobTrackPlugin : public QObject, public plv::Plugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "nl.illuxit.Parlevision.BlobTracker" FILE "blobtrack.json")
     Q_INTERFACES(plv::Plugin)
 
 public:

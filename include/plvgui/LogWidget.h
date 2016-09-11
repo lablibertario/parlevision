@@ -2,14 +2,14 @@
 #define LOGWIDGET_H
 
 #include <QDockWidget>
-#include <QxtLoggerEngine>
+#include "qxtloggerengine.h"
 
 QT_FORWARD_DECLARE_CLASS(QTextEdit)
 
 namespace plvgui
 {
 
-    class LogWidget : public QDockWidget, public QxtLoggerEngine
+    class LogWidget : public QDockWidget , public QxtLoggerEngine
     {
         Q_OBJECT
     public:

@@ -35,7 +35,6 @@
 #include <QTime>
 #include <QTimer>
 #include <QFuture>
-#include <QtConcurrentRun>
 
 #include "RefPtr.h"
 #include "RefCounted.h"
@@ -85,14 +84,7 @@ namespace plv
             m_dispatched = other.m_dispatched;
         }
 
-        void dispatch()
-        {
-            assert( m_element->getState() == PipelineElement::PLE_STARTED );
-            assert( m_dispatched == false );
-            m_element->setState( PipelineElement::PLE_DISPATCHED );
-            m_result = QtConcurrent::run( m_element, &PipelineElement::run, m_serial );
-            m_dispatched = true;
-        }
+        void dispatch();
     };
 
     /** Helper class for a QThread to run its own event loop */

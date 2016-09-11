@@ -49,5 +49,3 @@ void PlvBlobTrackPlugin::onLoad()
     plvRegisterPipelineElement<plvblobtracker::BlobDetector>();
     plvRegisterPipelineElement<plvblobtracker::VPBlobToStringConverter>();
 }
-
-Q_EXPORT_PLUGIN2(plv_blobtracker_plugin, PlvBlobTrackPlugin)

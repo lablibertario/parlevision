@@ -36,6 +36,9 @@
 #include "ConnectionLine.h"
 #include "PinWidget.h"
 
+#include <QGraphicsSceneMouseEvent>
+#include <QStyleOptionGraphicsItem>
+
 using namespace plvgui;
 using namespace plv;
 using namespace std;

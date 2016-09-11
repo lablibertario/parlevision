@@ -79,7 +79,7 @@ int Enum::getItemValue( int i ) const throw (RuntimeError)
     }
     else
     {
-        QString msg = QObject::tr("Invalid index %1 in Enum::getItemValue()").arg(i);
+        QString msg = QString("Invalid index %1 in Enum::getItemValue()").arg(i);
         throw RuntimeError( msg, __FILE__, __LINE__ );
     }
 }

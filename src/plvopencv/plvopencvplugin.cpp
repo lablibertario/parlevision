@@ -89,5 +89,4 @@ void PlvOpenCVPlugin::onLoad()
     plvRegisterPipelineElement<plvopencv::ForegroundDetector>();
     plvRegisterPipelineElement<plvopencv::CropImage>();
 }
-Q_EXPORT_PLUGIN2(plv_opencv_plugin, PlvOpenCVPlugin)
 

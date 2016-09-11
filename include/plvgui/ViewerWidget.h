@@ -22,7 +22,7 @@
 #ifndef VIEWERWIDGET_H
 #define VIEWERWIDGET_H
 
-#include <QtGui/QDockWidget>
+#include <QDockWidget>
 #include <plvcore/RefPtr.h>
 
 namespace Ui

@@ -23,5 +23,3 @@ void HelloWorldPlugin::onLoad()
     qDebug() << "HelloWorldPlugin onLoad";
     plvRegisterPipelineElement<HelloWorldProcessor>();
 }
-
-Q_EXPORT_PLUGIN2(hello_world_plugin, HelloWorldPlugin)

@@ -8,6 +8,7 @@
 class PLVOPENCV_EXPORT PlvOpenCVPlugin : public QObject, public plv::Plugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "nl.illuxit.Parlevision.OpenCV2Plugin" FILE "opencv2.json")
     Q_INTERFACES(plv::Plugin)
 
 public:

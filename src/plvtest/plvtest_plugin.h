@@ -30,6 +30,7 @@ class PLV_TEST_EXPORT PlvTestPlugin : public QObject, public plv::Plugin
 {
     Q_OBJECT
     Q_INTERFACES(plv::Plugin)
+    Q_PLUGIN_METADATA(IID "nl.illuxit.Parlevision.Test" FILE "test.json")
 
 public:
     PlvTestPlugin();

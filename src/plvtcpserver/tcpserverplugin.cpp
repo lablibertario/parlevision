@@ -46,5 +46,3 @@ void TCPServerPlugin::onLoad()
     plvRegisterPipelineElement<TCPServerProcessor>();
     plvRegisterPipelineElement<TCPClientProducer>();
 }
-
-Q_EXPORT_PLUGIN2(tcp_server_plugin, TCPServerPlugin)

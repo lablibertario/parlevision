@@ -2,7 +2,7 @@
 
 #include <QTextEdit>
 #include <QDateTime>
-#include <QxtLogger>
+#include "qxtloggerengine.h"
 
 using namespace plvgui;
 

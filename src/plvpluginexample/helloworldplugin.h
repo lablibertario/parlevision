@@ -8,6 +8,7 @@
 class HELLO_WORLD_PLUGINSHARED_EXPORT HelloWorldPlugin : public QObject, public plv::Plugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "nl.illuxit.Parlevision.HelloWorld" FILE "helloworld.json")
     Q_INTERFACES(plv::Plugin)
 
 public:

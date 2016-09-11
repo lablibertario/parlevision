@@ -22,7 +22,7 @@
 #ifndef DATARENDERER_H
 #define DATARENDERER_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QtCore/QObject>
 
 #include <plvcore/RefPtr.h>

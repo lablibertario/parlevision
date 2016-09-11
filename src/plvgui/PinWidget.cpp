@@ -28,6 +28,11 @@
 #include "PinClickedEvent.h"
 #include "MainWindow.h"
 
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QApplication>
+#include <QGraphicsScene>
+
 using namespace plvgui;
 using namespace plv;
 
@@ -161,7 +166,8 @@ void PinWidget::handleMouseDoubleClick()
     foreach(QWidget* tlw, QApplication::topLevelWidgets())
     {
         MainWindow* mw = qobject_cast<MainWindow*>(tlw);
-        if(mw != 0 && mw->isAncestorOf(this->scene()->views().first()))
+        // TODO hack for qt5 figure better way out
+        if(mw != 0) // && mw->isAncestorOf(this->scene()->views().first()))
         {
             qDebug() << "posting PinDoubleClickEvent to " << mw;
             QCoreApplication::postEvent(mw, new PinDoubleClickedEvent(this));

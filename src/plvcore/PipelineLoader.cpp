@@ -292,12 +292,12 @@ void PipelineLoader::parseElements( QDomNodeList* list, Pipeline* pipeline )
                 // as string
 
                 const QMetaObject* metaObject = ple->metaObject();
-                int index = metaObject->indexOfProperty( propNameXml.toAscii() );
+                int index = metaObject->indexOfProperty( propNameXml.toLatin1() );
                 QMetaProperty property = metaObject->property(index);
                 QVariant propValue;
                 if( property.type() == QVariant::UserType )
                 {
-                    propValue = ple->property( propNameXml.toAscii() );
+                    propValue = ple->property( propNameXml.toLatin1() );
                     if( propValue.canConvert<plv::Enum>() )
                     {
                         plv::Enum e = propValue.value<plv::Enum>();
@@ -310,7 +310,7 @@ void PipelineLoader::parseElements( QDomNodeList* list, Pipeline* pipeline )
                 {
                     propValue = convertData( property.type(), propValueXml );
                 }
-                ple->setProperty( propNameXml.toAscii(), propValue );
+                ple->setProperty( propNameXml.toLatin1(), propValue );
 
                 qDebug()<< "Found property with name: " << propNameXml
                         << " and value: " << propValue;
@@ -421,7 +421,7 @@ void PipelineLoader::parseConnections( QDomNodeList* list, Pipeline* pipeline )
 
 int PipelineLoader::propertyIndex( QObject* qobject, const QString& name )
 {
-    return qobject->metaObject()->indexOfProperty(  name.toAscii().constData() );
+    return qobject->metaObject()->indexOfProperty(  name.toLatin1().constData() );
 }
 
 QVariant::Type PipelineLoader::propertyType( QObject* qobject, int index )
@@ -463,7 +463,7 @@ QVariant PipelineLoader::convertData( QVariant::Type type, const QString& data )
     }
     case QVariant::ByteArray:
     {
-        return(data.toAscii());
+        return(data.toLatin1());
     }
     case QVariant::Date:
     {

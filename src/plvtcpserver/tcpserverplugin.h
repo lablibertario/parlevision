@@ -29,6 +29,7 @@
 class TCP_SERVER_EXPORT TCPServerPlugin : public QObject, public plv::Plugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "nl.illuxit.Parlevision.TCPServer" FILE "tcpserver.json")
     Q_INTERFACES(plv::Plugin)
 
 public:

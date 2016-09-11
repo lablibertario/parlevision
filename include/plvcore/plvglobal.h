@@ -30,7 +30,7 @@ enum PlvErrorType {
     PlvPipelineRuntimeError,/** something went wrong during pipeline execution */
     PlvFatalError           /** a fatal error will close the application */
 };
-Q_DECLARE_METATYPE( PlvErrorType );
+Q_DECLARE_METATYPE( PlvErrorType )
 
 enum PlvMessageType {
     PlvDebugMessage,
@@ -38,7 +38,7 @@ enum PlvMessageType {
     PlvWarningMessage,
     PlvErrorMessage
 };
-Q_DECLARE_METATYPE( PlvMessageType );
+Q_DECLARE_METATYPE( PlvMessageType )
 
 // disbale warnings specific to Microsoft compilers
 #if defined _MSC_VER

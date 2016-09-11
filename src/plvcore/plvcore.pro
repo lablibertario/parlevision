@@ -28,16 +28,15 @@ CONFIG(debug, debug|release):DEFINES += DEBUG
 QT += core
 QT -= gui
 QT += xml
+QT += concurrent
 
-#to include qxt project
-CONFIG  += qxt
-QXT     += core
+LIBS += -L../../libs -lqxtlogger
 
 #QMAKE_CXXFLAGS_DEBUG += -pedantic \
 # -Wunused-parameter \
 # -Wunused-variable
 
-INCLUDEPATH += ../../include ../../include/plvcore
+INCLUDEPATH += ../../include ../../include/plvcore ../qxtlogger
 
 DEFINES += PLV_SHARED_LIBRARY PLV_DLL_EXPORTS
 

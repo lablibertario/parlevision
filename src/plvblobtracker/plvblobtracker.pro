@@ -7,7 +7,7 @@ QT -= gui
 LIBS += -lplvcore
 
 macx {
-    QMAKE_POST_LINK = install_name_tool -change libplvcore.1.dylib @executable_path/../Frameworks/libplvcore.1.dylib $${DESTDIR}/$${TARGET}.dylib
+    #QMAKE_POST_LINK = install_name_tool -change libplvcore.1.dylib @executable_path/../Frameworks/libplvcore.1.dylib $${DESTDIR}/$${TARGET}.dylib
 }
 
 include (../../common.pri)
@@ -33,3 +33,8 @@ HEADERS +=  plvblobtracker_plugin.h \
             matrix.h \
     VPBlobToStringConverter.h
 			
+
+OTHER_FILES += blobtrack.json
+
+DISTFILES += \
+    blobtrack.json

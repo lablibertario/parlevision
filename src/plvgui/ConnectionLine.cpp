@@ -37,7 +37,7 @@ ConnectionLine::ConnectionLine(PinWidget* fromPin,
                                PinConnection* connection,
                                QGraphicsItem *parent,
                                QGraphicsScene *scene)
-                                   : QGraphicsLineItem(parent, scene),
+                                   : QGraphicsLineItem(parent),
                                    fromPin(fromPin),
                                    toPin(toPin),
                                    connection(connection)

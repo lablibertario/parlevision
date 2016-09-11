@@ -2,14 +2,16 @@
 # Builds all libraries and applications.
 TARGET = parlevision-all
 TEMPLATE = subdirs
-SUBDIRS =   src/plvcore \
+SUBDIRS =   src/qxtlogger \
+            src/plvcore \
             src/plvgui \
             src/parlevision \
             src/plvopencv \
             src/plvblobtracker \
             src/plvtcpserver \
             src/plvtest \
-            src/plvpluginexample
+            src/plvpluginexample \
+
 
 win32-msvc2010 {
     #SUBDIRS += src/plvmskinect

@@ -78,7 +78,7 @@ bool Blob::overlappingAreaRect( const Blob& other, cv::Rect& area ) const
 
 void Blob::drawString( cv::Mat& target, const QString& str, cv::Scalar color ) const
 {
-    cv::putText(target, str.toAscii().constData(), d->cog, CV_FONT_HERSHEY_SIMPLEX, 0.5, color, 1, CV_AA, false );
+    cv::putText(target, str.toLatin1().constData(), d->cog, CV_FONT_HERSHEY_SIMPLEX, 0.5, color, 1, CV_AA, false );
 }
 
 void Blob::drawContour( cv::Mat& target, cv::Scalar color, bool fill ) const

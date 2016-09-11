@@ -31,6 +31,8 @@
 #include <plvcore/DataProducer.h>
 #include <plvcore/RefPtr.h>
 
+#include <QLabel>
+
 using namespace plv;
 using namespace plvgui;
 

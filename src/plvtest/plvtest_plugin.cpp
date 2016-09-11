@@ -47,5 +47,3 @@ void PlvTestPlugin::onLoad()
     plvRegisterPipelineElement<TestProducer>();
     plvRegisterPipelineElement<BlobProducer>();
 }
-
-Q_EXPORT_PLUGIN2(plv_test_plugin, PlvTestPlugin)

@@ -33,11 +33,10 @@
 #include "Pipeline.h"
 #include "PipelineLoader.h"
 
-#include <QxtCore>
-#include <QxtLogger>
-#include <QxtXmlFileLoggerEngine>
-#include <QxtBasicFileLoggerEngine>
-#include <QxtBasicSTDLoggerEngine>
+#include "qxtlogger.h"
+#include "qxtxmlfileloggerengine.h"
+#include "qxtbasicfileloggerengine.h"
+#include "qxtbasicstdloggerengine.h"
 
 using namespace plv;
 

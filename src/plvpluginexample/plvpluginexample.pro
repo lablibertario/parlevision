@@ -45,3 +45,6 @@ SOURCES += helloworldplugin.cpp \
 HEADERS +=  helloworldplugin.h \
             hello_world_plugin_global.h \
             helloworldprocessor.h
+
+OTHER_FILES += \
+    helloworld.json

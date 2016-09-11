@@ -33,8 +33,8 @@ using namespace plvgui;
 InteractiveLine::InteractiveLine(PinWidget* fromPin,
                                QGraphicsItem *parent,
                                QGraphicsScene *scene)
-                                   : QObject(scene),
-                                   QGraphicsLineItem(parent, scene),
+                                   : QObject(),
+                                   QGraphicsLineItem(parent),
                                    fromPin(fromPin),
                                    targetPos(fromPin->getCircle()->mapToScene(fromPin->getCircle()->getCenter()))
 {

@@ -106,3 +106,4 @@ HEADERS +=  plvopencvplugin.h \
             Stitch.h \
             Crop.h
     
+OTHER_FILES += opencv2.json

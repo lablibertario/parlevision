@@ -39,7 +39,7 @@ QMAKE_POST_LINK += && install_name_tool -change libplvgui.1.dylib @executable_pa
 LIBS += -L../../libs -L../../libs/plugins -lplvcore -lplvgui -lplvcore
 
 CONFIG(debug, debug|release):DEFINES += DEBUG
-QT      += xml
+QT      += widgets xml
 
 QMAKE_INFO_PLIST = ../resources/Info.plist
 
@@ -55,3 +55,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     openeventhandler.h
+
+DISTFILES += \
+    ../plvopencv/opencv2.json

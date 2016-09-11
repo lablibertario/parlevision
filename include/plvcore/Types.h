@@ -29,6 +29,7 @@
 #include <QVariant>
 #include <QRect>
 #include <QSharedData>
+#include <QDataStream>
 
 #include <opencv/cv.h>
 #include "plvglobal.h"

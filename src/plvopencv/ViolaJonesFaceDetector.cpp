@@ -59,7 +59,7 @@ bool ViolaJonesFaceDetector::init()
         return false;
     }
 
-    void* cascade = cvLoad( m_haarCascadeFile.toAscii(),0,0,0 );
+    void* cascade = cvLoad( m_haarCascadeFile.toLatin1(),0,0,0 );
     if( cascade == 0 )
     {
 
