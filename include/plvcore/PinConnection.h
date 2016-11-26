@@ -103,7 +103,7 @@ namespace plv
         virtual ~PinConnection();
 
         int getId() const { return m_id; }
-        bool hasData() const;
+        bool hasDataItems() const;
         int size() const;
         Data get();
         Data peek() const;

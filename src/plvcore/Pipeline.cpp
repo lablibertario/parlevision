@@ -534,7 +534,7 @@ void Pipeline::stop()
     foreach(RefPtr<PinConnection> conn, m_connections)
     {
         conn->flush();
-        assert(!conn->hasData());
+        assert(!conn->hasDataItems());
     }
 
     QMutexLocker rqLock(&m_readyQueueMutex);

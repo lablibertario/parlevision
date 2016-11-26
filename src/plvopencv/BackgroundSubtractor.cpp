@@ -80,13 +80,13 @@ bool BackgroundSubtractor::process()
         setReset(false);
     }
 
-    if( m_inBackground->isConnected() && m_inBackground->hasData() )
+    if( m_inBackground->isConnected() && m_inBackground->hasDataItems() )
     {
         CvMatData inbg = m_inBackground->get();
         setBackground(inbg);
     }
 
-    if( m_inReset->isConnected() && m_inReset->hasData() )
+    if( m_inReset->isConnected() && m_inReset->hasDataItems() )
     {
         bool value = m_inReset->get();
         if( value )

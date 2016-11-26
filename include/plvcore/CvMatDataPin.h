@@ -18,8 +18,9 @@ namespace plv
         CvMatDataInputPin( const QString& name,
                            DataConsumer* owner,
                            Required required = CONNECTION_REQUIRED,
-                           Synchronized synchronous = CONNECTION_SYNCHRONOUS ) :
-                           IInputPin( name, owner, required, synchronous )
+                           Synchronized synchronous = CONNECTION_SYNCHRONOUS,
+                           DataGuarantee guarantee = CONNECTION_GUARANTEES_DATA) :
+                           IInputPin( name, owner, required, synchronous, guarantee )
         {
         }
 

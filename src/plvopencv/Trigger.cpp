@@ -60,7 +60,7 @@ bool Trigger::process()
     }
 
     // check if we received a new count value
-    if( m_inputCount->isConnected() && m_inputCount->hasData() )
+    if( m_inputCount->isConnected() && m_inputCount->hasDataItems() )
     {
         int num = m_inputCount->get();
         if( num != m_count)

@@ -4,11 +4,12 @@
 using namespace plv;
 
 IInputPin::IInputPin( const QString& name, DataConsumer* consumer,
-                      Required required, Synchronized sync ) :
+                      Required required, Synchronized sync, DataGuarantee guarantee ) :
         Pin( name, consumer ),
         m_consumer( consumer ),
         m_required( required ),
-        m_synchronous( sync )
+        m_synchronous( sync ),
+        m_guarantee( guarantee )
 {
     assert( m_consumer != 0 );
 }
@@ -50,11 +51,23 @@ bool IInputPin::isConnected() const
     return this->m_connection.isNotNull();
 }
 
-bool IInputPin::hasData() const
+bool IInputPin::hasDataItems() const
 {
     if( m_connection.isNotNull() )
     {
-        return this->m_connection->hasData();
+        return this->m_connection->hasDataItems();
+    }
+    return false;
+}
+
+bool IInputPin::hasData() const
+{
+    if( hasDataItems() )
+    {
+        unsigned int serial;
+        bool isNull;
+        m_connection->peek(serial, isNull);
+        return !isNull;
     }
     return false;
 }
@@ -88,7 +101,7 @@ void IInputPin::post()
     {
         if( !m_called )
         {
-            QString msg = tr("Processor %1 did not call mandatory get() on input Pin %2.")
+            QString msg = tr("Processor %1 did not call mandatory get() or clear() on input Pin %2.")
                           .arg(getOwner()->getName())
                           .arg(getName());
             throw RuntimeError(msg, __FILE__, __LINE__);
@@ -107,6 +120,31 @@ void IInputPin::acceptData(const Data& data)
     m_consumer->newData(this, data.getSerial());
 }
 
+void IInputPin::clear()
+{
+    // check if get is not called twice during one process call
+    if( m_called )
+    {
+        QString msg = tr("Illegal: method clear() or get() called twice during process() "
+                         "on InputPin %1 of processor %2.")
+                      .arg(m_name)
+                      .arg(m_consumer->getName());
+        throw RuntimeError(msg,__FILE__, __LINE__ );
+    }
+    m_called = true;
+    if( !(this->m_connection.isNotNull() &&
+          this->m_connection->hasDataItems() ))
+    {
+        QString msg = tr("Illegal: method clear() called on InputPin which "
+                         "has no data available. Pin name is %1 of processor %2")
+                        .arg(m_name)
+                        .arg(m_consumer->getName());
+        throw RuntimeError(msg, __FILE__, __LINE__);
+    }
+    // remove the first data item
+    removeFirst();
+}
+
 void IInputPin::getVariant(QVariant& v)
 {
     // check if get is not called twice during one process call
@@ -120,7 +158,7 @@ void IInputPin::getVariant(QVariant& v)
     }
     m_called = true;
     if( !(this->m_connection.isNotNull() &&
-          this->m_connection->hasData() ))
+          this->m_connection->hasDataItems() ))
     {
         QString msg = tr("Illegal: method get() called on InputPin which "
                          "has no data available. Pin name is %1 of processor %2")
@@ -129,5 +167,12 @@ void IInputPin::getVariant(QVariant& v)
         throw RuntimeError(msg, __FILE__, __LINE__);
     }
     Data d = m_connection->get();
+    if (d.isNull()) {
+        QString msg = tr("Illegal: method get() called on InputPin which "
+                         "has a NULL data item available. Pin name is %1 of processor %2")
+                        .arg(m_name)
+                        .arg(m_consumer->getName());
+        throw RuntimeError(msg, __FILE__, __LINE__);
+    }
     v.setValue(d.getPayload());
 }

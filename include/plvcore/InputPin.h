@@ -9,8 +9,8 @@ namespace plv
     class InputPin : public IInputPin
     {
     public:
-        InputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync ) :
-                  IInputPin( name, consumer, required, sync )
+        InputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync, DataGuarantee guarantee ) :
+                  IInputPin( name, consumer, required, sync, guarantee )
         {
         }
 
@@ -42,11 +42,12 @@ namespace plv
     template<typename T>
     plv::InputPin<T> * createInputPin( const QString& name, plv::DataConsumer* owner,
                                   plv::IInputPin::Required required = plv::IInputPin::CONNECTION_REQUIRED,
-                                  plv::IInputPin::Synchronized synchronized = plv::IInputPin::CONNECTION_SYNCHRONOUS )
+                                  plv::IInputPin::Synchronized synchronized = plv::IInputPin::CONNECTION_SYNCHRONOUS,
+                                  plv::IInputPin::DataGuarantee guarantee = plv::IInputPin::CONNECTION_GUARANTEES_DATA)
     throw (plv::IllegalArgumentException)
     {
         // if add fails pin is automatically deleted and exception is thrown
-        plv::InputPin<T> * pin = new plv::InputPin<T>( name, owner, required, synchronized );
+        plv::InputPin<T> * pin = new plv::InputPin<T>( name, owner, required, synchronized, guarantee );
         owner->addInputPin( pin );
         return pin;
     }

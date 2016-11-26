@@ -211,7 +211,7 @@ bool SaveImageToFile::process()
     // save images when true is received
     if( m_inputTrigger->isConnected() )
     {
-        if( !m_inputTrigger->hasData() )
+        if( !m_inputTrigger->hasDataItems() )
             return true;
 
         bool trigger = m_inputTrigger->get();
@@ -241,7 +241,7 @@ bool SaveImageToFile::process()
                 // The image format is chosen based on the filename extension,
                 // see imread for the list of extensions.
                 // Only 8-bit (or 16-bit in the case of PNG, JPEG 2000 and TIFF) single-channel
-                // or 3-channel (with ‘BGR’ channel order) images can be saved using this function.
+                // or 3-channel (with Â‘BGRÂ’ channel order) images can be saved using this function.
                 // If the format, depth or channel order is different, use Mat::convertTo ,
                 // and cvtColor to convert it before saving, or use the universal XML I/O functions
                 // to save the image to XML or YAML format.

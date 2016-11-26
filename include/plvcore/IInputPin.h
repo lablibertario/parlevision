@@ -23,7 +23,12 @@ namespace plv
             CONNECTION_ASYNCHRONOUS
         } Synchronized;
 
-        IInputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync );
+        typedef enum DataGuarantee {
+            CONNECTION_GUARANTEES_DATA,
+            CONNECTION_DATA_MAY_BE_NULL
+        } DataGuarantee;
+
+        IInputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync, DataGuarantee guarantee );
         virtual ~IInputPin();
 
         inline Required getRequiredType() const { return m_required; }
@@ -35,13 +40,23 @@ namespace plv
         inline bool isSynchronous() const { return m_synchronous == CONNECTION_SYNCHRONOUS; }
         inline bool isAsynchronous() const { return m_synchronous == CONNECTION_ASYNCHRONOUS; }
 
+        inline bool isDataGuaranteed() const { return m_guarantee == CONNECTION_GUARANTEES_DATA; }
+        inline bool canDataBeNull() const { return m_guarantee == CONNECTION_DATA_MAY_BE_NULL; }
+
         void setConnection(PinConnection* connection);
         void removeConnection();
         PinConnection* getConnection() const;
 
         void peekNext(unsigned int& serial, bool& isNull) const;
 
+        /** @returns true if there are data items waiting in the queue of the connection this pin has,
+         * false if there are no data items or there is no connection
+         */
+        bool hasDataItems() const;
+
+        /** Same as hasDataItems except it also checks if the first data item in the queue is not a NULL item */
         bool hasData() const;
+
         void flushConnection();
         bool fastforward( unsigned int target );
 
@@ -59,6 +74,10 @@ namespace plv
 
         void acceptData( const Data& data );
 
+        /** removes the first data item. Call to clear unwanted data items such as null items on pins without data guarantee */
+        void clear();
+
+        /** converts the Data item to a QVariant */
         void getVariant( QVariant& data );
 
         /** set called to value of val */
@@ -83,6 +102,13 @@ namespace plv
 
         /** The input pin synchronicity either CONNECTION_SYNCHRONOUS or CONNECTION_ASYNCHRONOUS*/
         Synchronized m_synchronous;
+
+        /**
+         * The input pin guarantees data when pin is CONNECTION_SYNCHRONOUS and guarantee CONNECTION_GUARANTEES_DATA
+         * Default is CONNECTION_GUARANTEES_DATA. When using CONNECTION_DATA_CAN_BE_NULL the processor must itself check
+         * if there is a NULL data item when taking data from the pin.
+        */
+        DataGuarantee m_guarantee;
 
         /** isNull() if there is no connection */
         RefPtr<PinConnection> m_connection;

@@ -176,7 +176,7 @@ bool DataConsumer::dataAvailableOnInputPins( unsigned int& nextSerial )
             {
                 if( in->isSynchronous() )
                 {
-                    if( in->hasData() )
+                    if( in->hasDataItems() )
                     {
                         unsigned int serial;
                         bool isNull;
@@ -224,7 +224,7 @@ bool DataConsumer::dataAvailableOnInputPins( unsigned int& nextSerial )
             // only check asynchronous connections
             if( in->isConnected() ) //&& in->isAsynchronous() )
             {
-                if( in->hasData() )
+                if( in->hasDataItems() )
                 {
                     unsigned int serial;
                     bool isNull;
@@ -347,7 +347,7 @@ void DataConsumer::preInput( bool& nullDetected )
     {
         IInputPin* in = itr.value().getPtr();
 
-        if( in->isConnected() && in->isSynchronous() )
+        if( in->isConnected() && in->isSynchronous() && in->isDataGuaranteed())
         {
             unsigned int serial;
             bool isNull;

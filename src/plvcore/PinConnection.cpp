@@ -238,7 +238,7 @@ void PinConnection::disconnect()
     }
 }
 
-bool PinConnection::hasData() const
+bool PinConnection::hasDataItems() const
 {
     QMutexLocker lock( &m_connectionMutex );
     return !m_queue.empty();

@@ -57,7 +57,7 @@ bool Average::start()
 
 bool Average::process()
 {
-    if( m_inputFrames->isConnected() && m_inputFrames->hasData() )
+    if( m_inputFrames->isConnected() && m_inputFrames->hasDataItems() )
     {
         int frames = m_inputFrames->get();
         if( m_numFrames != frames )

@@ -100,9 +100,10 @@ void CvMatDataInputPin::checkImageFormat( const CvMatData& mat )
 {
     if( !supportsDepth( mat.depth()) )
     {
-        QString msg = QString("Depth \"%1\" unsupported by input pin \"%2\"")
+        QString msg = QString("Depth \"%1\" unsupported by input pin \"%2\" of processor %3")
                       .arg( CvMatData::depthToString( mat.depth() ) )
-                      .arg( this->getName() );
+                      .arg( this->getName() )
+                      .arg( this->getOwner()->getName() );
         throw RuntimeError( msg, __FILE__, __LINE__ );
     }
 

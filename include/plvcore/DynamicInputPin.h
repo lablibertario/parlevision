@@ -11,8 +11,8 @@ namespace plv
         /** The dynamically set type id */
         int m_typeId;
     public:
-        DynamicInputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync, int typeId ) :
-                  IInputPin( name, consumer, required, sync ),
+        DynamicInputPin( const QString& name, DataConsumer* consumer, Required required, Synchronized sync, DataGuarantee guarantee, int typeId ) :
+                  IInputPin( name, consumer, required, sync, guarantee ),
                   m_typeId( typeId )
         {
         }
@@ -61,6 +61,7 @@ namespace plv
     PLVCORE_EXPORT plv::DynamicInputPin* createDynamicInputPin( const QString& name, plv::DataConsumer* owner,
                                   plv::IInputPin::Required required = plv::IInputPin::CONNECTION_REQUIRED,
                                   plv::IInputPin::Synchronized synchronized = plv::IInputPin::CONNECTION_SYNCHRONOUS,
+                                  plv::IInputPin::DataGuarantee guarantee = plv::IInputPin::CONNECTION_GUARANTEES_DATA,
                                   int typeId = 0 )
     throw (plv::IllegalArgumentException);
 }

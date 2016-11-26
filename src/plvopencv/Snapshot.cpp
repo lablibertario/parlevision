@@ -48,7 +48,7 @@ bool Snapshot::process()
 {
     CvMatData in = m_inputPin->get();
 
-    if( m_inputTrigger->isConnected() && m_inputTrigger->hasData() )
+    if( m_inputTrigger->isConnected() && m_inputTrigger->hasDataItems() )
     {
         bool trigger = m_inputTrigger->get();
         m_makeSnapshot = trigger || m_makeSnapshot;
