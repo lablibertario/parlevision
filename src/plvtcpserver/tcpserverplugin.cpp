@@ -32,17 +32,14 @@ using namespace plv;
 
 TCPServerPlugin::TCPServerPlugin()
 {
-    qDebug() << "TCPServerPlugin constructor";
 }
 
 TCPServerPlugin::~TCPServerPlugin()
 {
-    qDebug() << "TCPServerPlugin destructor";
 }
 
 void TCPServerPlugin::onLoad()
 {
-    qDebug() << "TCPServerPlugin onLoad";
     plvRegisterPipelineElement<TCPServerProcessor>();
     plvRegisterPipelineElement<TCPClientProducer>();
 }

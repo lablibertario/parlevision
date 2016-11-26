@@ -10,16 +10,13 @@ using namespace plv;
 
 HelloWorldPlugin::HelloWorldPlugin()
 {
-    qDebug() << "HelloWorldPlugin constructor";
 }
 
 HelloWorldPlugin::~HelloWorldPlugin()
 {
-    qDebug() << "HelloWorldPlugin destructor";
 }
 
 void HelloWorldPlugin::onLoad()
 {
-    qDebug() << "HelloWorldPlugin onLoad";
     plvRegisterPipelineElement<HelloWorldProcessor>();
 }

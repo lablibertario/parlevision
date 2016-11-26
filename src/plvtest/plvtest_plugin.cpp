@@ -33,17 +33,14 @@ using namespace plv;
 
 PlvTestPlugin::PlvTestPlugin()
 {
-    qDebug() << "PlvTestPlugin constructor";
 }
 
 PlvTestPlugin::~PlvTestPlugin()
 {
-    qDebug() << "PlvTestPlugin destructor";
 }
 
 void PlvTestPlugin::onLoad()
 {
-    qDebug() << "PlvTestPlugin onLoad";
     plvRegisterPipelineElement<TestProducer>();
     plvRegisterPipelineElement<BlobProducer>();
 }
