@@ -35,7 +35,7 @@ namespace plv
     class ScoreBoard
     {
     public:
-        ScoreBoard() : m_pincount(0), m_base(0)
+        ScoreBoard() : m_pincount(0)//, m_base(0)
         {
         }
 
@@ -60,7 +60,7 @@ namespace plv
         }
     private:
         int m_pincount;
-        unsigned int m_base;
+        //unsigned int m_base;
         QHash<unsigned int, int> m_lookup;
 
     };
