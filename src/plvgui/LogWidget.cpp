@@ -17,12 +17,14 @@ LogWidget::LogWidget(const QString& title, QWidget *parent, int maxLogLength) :
     m_textEdit->setReadOnly(true);
     this->setWidget(m_textEdit);
     qxtLog->addLoggerEngine("plvgui", this);
+    qxtLog->setMinimumLevel("plvgui", QxtLogger::LogLevel::ErrorLevel);
 
     m_textEdit->document()->setMaximumBlockCount(maxLogLength);
 }
 
 LogWidget::~LogWidget()
 {
+    killLoggerEngine();
     qxtLog->removeLoggerEngine(this);
 }
 

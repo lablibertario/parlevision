@@ -22,7 +22,7 @@
 #include "InteractiveLine.h"
 
 #include <QtGui>
-
+#include <QGraphicsScene>
 #include <QDebug>
 
 #include "PinWidget.h"
@@ -41,6 +41,7 @@ InteractiveLine::InteractiveLine(PinWidget* fromPin,
     setFlag(QGraphicsItem::ItemIsSelectable, false);
     setFlag(QGraphicsItem::ItemIsMovable, false);
     setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    scene->addItem(this);
 }
 
 void InteractiveLine::paint(QPainter *painter,

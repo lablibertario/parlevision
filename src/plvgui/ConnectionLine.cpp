@@ -23,11 +23,12 @@
 
 #include <QtGui>
 #include <QDebug>
+#include <QGraphicsScene>
 
 #include "PinWidget.h"
 #include <plvcore/PinConnection.h>
 
-const qreal Pi = 3.14;
+//const qreal Pi = 3.14;
 
 using namespace plv;
 using namespace plvgui;
@@ -45,6 +46,7 @@ ConnectionLine::ConnectionLine(PinWidget* fromPin,
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemIsMovable, false);
     setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    scene->addItem(this);
     updatePosition();
 }
 

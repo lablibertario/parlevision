@@ -418,7 +418,7 @@ void PipelineScene::setChanged()
 
 MainWindow* PipelineScene::getMainWindow()
 {
-    QGraphicsView* first = this->views().first();
+    //QGraphicsView* first = this->views().first();
     foreach(QWidget* tlw, QApplication::topLevelWidgets())
     {
         MainWindow* mw = qobject_cast<MainWindow*>(tlw);
