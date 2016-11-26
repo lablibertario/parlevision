@@ -98,13 +98,16 @@ int DataConsumer::getNextInputPinId() const
 {
     int id=0;
 
-    InputPinMap::const_iterator itr = m_inputPins.begin();
-    for( ;itr != m_inputPins.end(); ++itr, ++id)
-    {
-        int cid = itr.key();
-        if( cid > id )
-            return id;
+    //InputPinMap::const_iterator itr = m_inputPins.begin();
+    while (m_inputPins.find(id) != m_inputPins.end()) {
+        id++;
     }
+//    for( ;itr != m_inputPins.end(); ++itr, ++id)
+//    {
+//        int cid = itr.key();
+//        if( cid > id )
+//            return id;
+//    }
     return id;
 }
 
