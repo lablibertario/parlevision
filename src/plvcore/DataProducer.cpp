@@ -64,12 +64,15 @@ int DataProducer::getNextOutputPinId() const
 {
     int id=0;
 
-    OutputPinMap::const_iterator itr = m_outputPins.begin();
-    for( ;itr != m_outputPins.end(); ++itr, ++id)
-    {
-        int cid = itr.key();
-        if( cid > id )
-            return id;
+//    OutputPinMap::const_iterator itr = m_outputPins.begin();
+//    for( ;itr != m_outputPins.end(); ++itr, ++id)
+//    {
+//        int cid = itr.key();
+//        if( cid > id )
+//            return id;
+//    }
+    while (m_outputPins.find(id) != m_outputPins.end()) {
+        id++;
     }
     return id;
 }
